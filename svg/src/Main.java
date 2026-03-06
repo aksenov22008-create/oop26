@@ -3,18 +3,14 @@
 public class Main {
 
     public static void main(String[] args){
-        Point p = new Point();
-
-        System.out.println(p.toSvg());
-        System.out.println(p);
-        p.translate(20F,10F);
-        System.out.println(p);
-
-        Point p2=new Point(2.6F,9);
-        System.out.println(p2);
-        Segment s1=new Segment(new Point(p),new Point(p2));
-        System.out.println(s1);
-        p.setX(100F);
-        System.out.println(s1);
+        Point[] points = new Point[5];
+        points[0]= new Point(2.3F,5.6F);
+        points[1]= new Point(10.5F,12.4F);
+        points[2]= new Point(15.4F,74.2F);
+        points[3]= new Point(72.4F,71.6F);
+        points[4]= new Point(162.4F,51.3F);
+        Polygon p1=new Polygon(points);
+        System.out.println(p1);
+        System.out.println(p1.toSvg());
     }
 }
