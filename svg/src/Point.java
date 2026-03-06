@@ -8,7 +8,10 @@ public class Point {
         this.x=0;
         this.y=0;
     }
-
+    public Point (Point p){
+        this.x=p.x;
+        this.y=p.y;
+    }
     public Point (float x,float y){
         this.x=x;
         this.y=y;
@@ -19,10 +22,10 @@ public class Point {
     public float getY(){
         return y;
     }
-    public void setX(){
+    public void setX(float x){
         this.x=x;
     }
-    public void setY(){
+    public void setY(float y){
         this.y=y;
     }
     public String toString(){

@@ -12,7 +12,9 @@ public class Main {
 
         Point p2=new Point(2.6F,9);
         System.out.println(p2);
+        Segment s1=new Segment(new Point(p),new Point(p2));
+        System.out.println(s1);
+        p.setX(100F);
+        System.out.println(s1);
     }
-
-
 }
