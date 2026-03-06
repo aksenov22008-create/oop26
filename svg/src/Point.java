@@ -1,8 +1,30 @@
 import java.util.Locale;
 
 public class Point {
-    public float x;
-    public float y;
+    private float x;
+    private float y;
+
+    public Point(){
+        this.x=0;
+        this.y=0;
+    }
+
+    public Point (float x,float y){
+        this.x=x;
+        this.y=y;
+    }
+    public float getX(){
+        return x;
+    }
+    public float getY(){
+        return y;
+    }
+    public void setX(){
+        this.x=x;
+    }
+    public void setY(){
+        this.y=y;
+    }
     public String toString(){
         return "Point {x="+x+", y="+y+"}";
     }
@@ -19,5 +41,6 @@ public class Point {
         newPoint.x = this.x+dx;
         newPoint.y =this.y+dy;
         return newPoint;
+
     }
 }
