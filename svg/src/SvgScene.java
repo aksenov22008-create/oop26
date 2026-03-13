@@ -7,7 +7,7 @@ public class SvgScene {
 
     private int index = 0;
 
-    public void addShape(Polygon p){
+    public void addShape(Shape p){
         shapes[index]= p;
         index ++;
         if(index == 3 ){
@@ -22,7 +22,7 @@ public class SvgScene {
                 polygonsString.append(p.toSvg()).append("\n");
             }
         }
-        return String.format(Locale.ENGLISH, "<svg height=\"100\" width=\"100\" xmlns=\"http://www.w3.org/2000/svg\">%s</svg>",polygonsString);
+        return String.format(Locale.ENGLISH, "<svg height=\"1000\" width=\"1000\" xmlns=\"http://www.w3.org/2000/svg\">%s</svg>",polygonsString);
     }
     public void save(String path) throws IOException {
         FileWriter writer = new FileWriter(path);

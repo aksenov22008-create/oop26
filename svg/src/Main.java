@@ -29,6 +29,7 @@ public class Main {
                 new Point(100.0F,60.0F)
         ),new Style("red", "green",3.0)));
 
+        scene.addShape(new Ellipse(new Point(100.F,100.F),20.0F,50.0F,new Style("red","blue",3.0)));
         scene.save("out.svg");
         System.out.println(p1.boundingBox());
 
