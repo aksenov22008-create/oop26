@@ -1,8 +1,10 @@
+import java.io.IOException;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
         Point[] points = new Point[5];
         points[0]= new Point(2.3F,5.6F);
         points[1]= new Point(10.5F,12.4F);
@@ -21,6 +23,7 @@ public class Main {
         scene.addPolygon(p1);
         scene.addPolygon(p2);
         System.out.println(scene.toSvg());
+        scene.save("out.svg");
         System.out.println(p1.boundingBox());
 
     }

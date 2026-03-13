@@ -22,7 +22,7 @@ public class Polygon {
         for (Point point : points){
             pointstring += point.getX()+","+point.getY()+" ";
         }
-        return String.format(Locale.ENGLISH, "<polygon points=\"%s\" style= fill:lime;stroke:purple;sroke-width:3 />",pointstring);
+        return String.format(Locale.ENGLISH, "<polygon points=\"%s\" style= \"fill:lime;stroke:purple;sroke-width:3\" />",pointstring);
     }
     public BoundingBox boundingBox(){
         if(points.length == 0){
