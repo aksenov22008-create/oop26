@@ -20,11 +20,11 @@ public class Main {
                 new Point(10,10)
         });
         SvgScene scene = new SvgScene();
-        scene.addPolygon(p1);
-        scene.addPolygon(p2);
+        scene.addShape(p1);
+        scene.addShape(p2);
         System.out.println(scene.toSvg());
 
-        scene.addPolygon(Polygon.square(new Segment(
+        scene.addShape(Polygon.square(new Segment(
                 new Point(55.0F,100.0F),
                 new Point(100.0F,60.0F)
         ),new Style("red", "green",3.0)));
