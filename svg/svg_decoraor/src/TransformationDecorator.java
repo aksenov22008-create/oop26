@@ -38,13 +38,13 @@ public class TransformationDecorator extends ShapeDecorator{
         public String build(){
             StringBuilder result = new StringBuilder();
             if(translation != null){
-                result.append(String.format(Locale.ENGLISH,"translate(%f %f) ,",translation.x(),translation.y()));
+                result.append(String.format(Locale.ENGLISH,"translate(%f,%f) ",translation.x(),translation.y()));
             }
             if(rotation != 0){
-                result.append(String.format(Locale.ENGLISH," rotation(%f) ,",rotation));
+                result.append(String.format(Locale.ENGLISH,"rotate(%f) ",rotation));
             }
             if(scale != null){
-                result.append(String.format(Locale.ENGLISH," scale(%f %f) ",scale.x(),scale.y()));
+                result.append(String.format(Locale.ENGLISH,"scale(%f,%f) ",scale.x(),scale.y()));
             }
         return result.toString();
         }
