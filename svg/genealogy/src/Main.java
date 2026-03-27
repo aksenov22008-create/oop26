@@ -11,10 +11,13 @@ public class Main {
         people.add(new Person("Muhammad","Ali", LocalDate.of(1944,1,2)));
         Person parent = people.get(0);
         Person child = people.get(1);
+
         System.out.println(parent.adopt(child));
         System.out.println(parent.adopt(child));
         System.out.println(parent.adopt(parent));
         System.out.println(people);
-        System.out.println(child.getYoungestChild());
+        parent.adopt(people.get(2));
+        System.out.println(parent.getYoungestChild());
+        System.out.println(parent.getChildren());
     }
 }

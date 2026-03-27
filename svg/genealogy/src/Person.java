@@ -41,7 +41,14 @@ public class Person implements Comparable{
         if(child == this){return false;}
         return children.add(child);
     }
-
+    public List<Person> getChildren(){
+//        List<Person> result = new ArrayList<>();
+//        result.addAll(children);
+//
+//        result.sort(Person::compareTo);
+//        return result;
+        return children.stream().sorted().toList();
+    }
     public int compareTo(Person other){
         return this.birthday.compareTo(other.birthday);
     }
