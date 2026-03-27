@@ -49,4 +49,9 @@ public class Person implements Comparable{
     public String toString() {
         return "Person{"+" firstName='"+firstName+"'"+" lastName='"+lastName+"'"+" birthday="+birthday+" children="+children+"}";
     }
+
+    @Override
+    public int compareTo(Object o) {
+        return 0;
+    }
 }
