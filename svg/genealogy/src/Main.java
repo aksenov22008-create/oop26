@@ -25,5 +25,6 @@ public class Main {
             family.add(person);
         }
         Person mike = family.get("Mike Tyson");
+        System.out.println(mike);
     }
 }
