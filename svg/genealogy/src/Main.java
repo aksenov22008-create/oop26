@@ -19,5 +19,11 @@ public class Main {
         parent.adopt(people.get(2));
         System.out.println(parent.getYoungestChild());
         System.out.println(parent.getChildren());
+
+        Family family = new Family();
+        for(Person person : people){
+            family.add(person);
+        }
+        Person mike = family.get("Mike Tyson");
     }
 }
