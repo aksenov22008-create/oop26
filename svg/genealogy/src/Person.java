@@ -1,5 +1,4 @@
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -7,7 +6,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Person implements Comparable{
-    public String negativeLifespanExceptionMessege;
     private String firstName;
     private String lastName;
     private LocalDate birthday;
@@ -65,7 +63,7 @@ public class Person implements Comparable{
 //        return result;
         return children.stream().sorted().toList();
     }
-    public static Person fromCsvLine(String line){
+    public static Person fromCsvLine(String line) throws NegativeLifespanException {
         String[] columns = line.split(",",-1);
         String fullName = columns[0];
         String[]  name = fullName.split(" ");
@@ -87,13 +85,17 @@ public class Person implements Comparable{
         file.readLine();
         String line;
         while((line = file.readLine()) != null){
-            people.add(fromCsvLine(line));
+            try {
+                people.add(fromCsvLine(line));
+            } catch (NegativeLifespanException e) {
+                System.err.println(e.getMessage());
+            }
         }
         file.close();
         return people;
     }
 
-    public String negativeLifespanExceptionMessege(){
+    public String negativeLifespanExceptionMessage(){
         return String.format("Osoba %s %s ma dae smierci %s wczesniejsza niz data urodzenia %s",
                 this.firstName,this.lastName,this.death,this.birthday);
     }
