@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Person implements Comparable{
+    public String negativeLifespanExceptionMessege;
     private String firstName;
     private String lastName;
     private LocalDate birthday;
@@ -39,13 +40,17 @@ public class Person implements Comparable{
         return youngest;
     }
 
-    public Person(String firstName, String lastName, LocalDate birthday,LocalDate death) {
+    public Person(String firstName, String lastName, LocalDate birthday,LocalDate death) throws NegativeLifespanException {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthday = birthday;
         this.death=death;
+
+        if(this.death != null && this.birthday.isAfter(this.death)){
+            throw new NegativeLifespanException(this);
+        }
     }
-    public Person (String firstName, String lastName, LocalDate birthday){
+    public Person (String firstName, String lastName, LocalDate birthday) throws NegativeLifespanException {
         this(firstName,lastName,birthday,null);
     }
     public boolean adopt(Person child){
@@ -86,6 +91,11 @@ public class Person implements Comparable{
         }
         file.close();
         return people;
+    }
+
+    public String negativeLifespanExceptionMessege(){
+        return String.format("Osoba %s %s ma dae smierci %s wczesniejsza niz data urodzenia %s",
+                this.firstName,this.lastName,this.death,this.birthday);
     }
     public String name(){
         return String.format("%s %s",firstName,lastName);
