@@ -17,6 +17,7 @@ public class PluntUmlPunner {
             writer.close();
 
             ProcessBuilder builder = new ProcessBuilder("java","-jar",jarPath,file.getPath());
+            PluntUmlPunner.generator(Person.generateTree((people),"ouput","test"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
