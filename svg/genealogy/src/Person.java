@@ -80,25 +80,28 @@ public class Person implements Comparable{
         return new Person(fname,lname,birthdate,deathdate);
     }
     public static List<Person> fromCsv(String path) throws IOException {
-        List<Person> people = new ArrayList<>();
+        Map<String, PersonWithParentString> people = new HashMap<>();
+        //List<Person> people = new ArrayList<>();
         BufferedReader file = new BufferedReader(new FileReader(path));
         file.readLine();
         String line;
         while((line = file.readLine()) != null){
             try {
-                Person newPerson = fromCsvLine(line);
-                for(Person person : people){
-                    if(person.name().equals(newPerson.name())){
-                        throw new AmbiguousPersonException(person,newPerson);
-                    }
-                }
-                people.add(newPerson);
-            } catch (NegativeLifespanException | AmbiguousPersonException e) {
+                PersonWithParentString newPerson = PersonWithParentString.fromCsvLine(line);
+                people.put(newPerson.name(),newPerson);
+                //for(Person person : people){
+                    //if(person.name().equals(newPerson.name())){
+                        //throw new AmbiguousPersonException(person,newPerson);
+                    //}
+                //}
+                //people.add(newPerson);
+            } catch (NegativeLifespanException e) {
                 System.err.println(e.getMessage());
             }
         }
         file.close();
-        return people;
+        PersonWithParentString.connectRelaives(people);
+        return PersonWithParentString.unpackMap(people);
     }
 
     public String negativeLifespanExceptionMessage(){
