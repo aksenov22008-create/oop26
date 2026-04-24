@@ -15,8 +15,14 @@ public class Main {
 //        } catch (ClassNotFoundException e) {
 //            throw new RuntimeException(e);
 //        }
-        PluntUmlPunner.setJarPath("");
-        String umlData = "";
+        PluntUmlPunner.setJarPath("C:/Users/student/Dowloads/plantuml-1.2026.2");
+        String umlData = "@startuml\n" +
+                "Alice -> Bob: Authentication Request\n" +
+                "Bob --> Alice: Authentication Response\n" +
+                "\n" +
+                "Alice -> Bob: Another authentication Request\n" +
+                "Alice <-- Bob: Another authentication Response\n" +
+                "@enduml\n";
 
         PluntUmlPunner.generator(umlData,"output","test");
     }
