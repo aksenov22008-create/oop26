@@ -29,4 +29,13 @@ public class DeathCauseStatistic {
     public String getCode(){
         return code;
     }
+    public static record AgeBracketDeaths(int begin,int old,int deathCount){};
+
+    public AgeBracketDeaths getAge(int year){
+        int begin = Math.floorDiv(year,5)*5;
+        int end= begin+4;
+
+        int count = death.get(new Range(begin,end));
+        return new AgeBracketDeaths(begin,end,count);
+    }
 }
