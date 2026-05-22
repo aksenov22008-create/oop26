@@ -1,5 +1,6 @@
 package auth;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import daabase.DaabaseConnection;
 
 import java.sql.Connection;
@@ -22,7 +23,7 @@ public class AccountManager {
         preparedStatement.execute();
 
         ResultSet rs = preparedStatement.getGeneratedKeys();
-        if (rs.next()) rs.getInt(1);
+        if (rs.next()) return rs.getInt(1);
         throw new RuntimeException("Nie udalo");
     }
     public static boolean authenticate(String name ,String password) throws SQLException {
@@ -34,7 +35,7 @@ public class AccountManager {
         ResultSet rs = ps.executeQuery();
         if(rs.next()){
             String dbPassword = rs.getString("password");
-            BCrypt.Result result = BCrypt.verifyer().verefy(password.toCharArray(),dbPassword);
+            BCrypt.Result result = BCrypt.verifyer().verify(password.toCharArray(),dbPassword);
             return result.verified;
         }
         return false;

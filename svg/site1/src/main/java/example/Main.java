@@ -1,5 +1,6 @@
 package example;
 
+import auth.AccountManager;
 import daabase.DaabaseConnection;
 
 import java.sql.Connection;
@@ -12,8 +13,8 @@ public class Main {
         DaabaseConnection db = DaabaseConnection.getInstance();
         try {
             db.connect("site1/users.db");
-            AccountManager.regiser("Tesownik","test123");
-            AccountManager.athenicate("JanKow","test123");
+            AccountManager.register("Tesownik","test123");
+            AccountManager.authenticate("JanKow","test123");
             selection();
             db.disconnect();
         } catch (SQLException ex) {
