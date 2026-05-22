@@ -12,7 +12,8 @@ public class Main {
         DaabaseConnection db = DaabaseConnection.getInstance();
         try {
             db.connect("site1/users.db");
-            insert("Jan","Nowak1234");
+            AccountManager.regiser("Tesownik","test123");
+            AccountManager.athenicate("JanKow","test123");
             selection();
             db.disconnect();
         } catch (SQLException ex) {
