@@ -24,4 +24,13 @@ public class PlaylistTest {
         playlist.add(song);
         assertTrue(playlist.contains(song));
     }
+    @Test
+    public void testEqualElement(){
+        Playlist playlist =new Playlist();
+        Song song = new Song("Jan Kowalski","Test",183);
+        Song samesong = new Song("Jan Kowalski","Test",183);
+        playlist.add(song);
+        assertTrue(playlist.contains(samesong));
+        assertEquals(playlist.get(0),samesong);
+    }
 }
