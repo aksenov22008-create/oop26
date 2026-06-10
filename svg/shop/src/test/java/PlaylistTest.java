@@ -64,4 +64,5 @@ public class PlaylistTest {
     public void TestDoesThrowNegaiveException(){
         assertEquals("Ujemny czas",doesThrowExeptionCommon(-1000).getMessage());
     }
+
 }

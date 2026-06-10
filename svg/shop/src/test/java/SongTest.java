@@ -1,6 +1,10 @@
 import com.sun.jdi.connect.Connector;
 import database.DatabaseConnection;
 import music.Song;
+import org.junit.jupiter.params.provider.CsvFileSource;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -19,8 +23,8 @@ public class SongTest {
     public void testRead() throws SQLException {
         DatabaseConnection.connect("songs.db");
 
-        Optional<Song> song =Song.Persistence.read(5);
-        Song expected = new Song("The Beatles","Hey Jude",431);
+        Optional<Song> song =Song.Persistence.read(4);
+        Song expected = new Song("Bob Dylan","Like a Rolling Stone",373);
         assertTrue(song.isPresent());
         assertEquals(expected,song.get());
 
@@ -45,5 +49,25 @@ public class SongTest {
 
         assertTrue(song.isPresent());
         assertEquals(expectedSong,song.get());
+    }
+    @ParameterizedTest
+    @CsvFileSource(files = "songs.csv", numLinesToSkip = 1)
+    public void testReadCsv(int id ,String artist,String title ,int length) throws SQLException {
+        DatabaseConnection.connect("songs.db","");
+        Optional<Song> song =Song.Persistence.read(id);
+        Song expectedSong = new Song(artist,title,length);
+
+        assertTrue(song.isPresent());
+        assertEquals(expectedSong,song.get());
+    }
+
+    @BeforeEach
+    void connect() {
+        DatabaseConnection.connect("songs.db");
+    }
+
+    @AfterEach
+    void disconnect() {
+        DatabaseConnection.disconnect();
     }
 }

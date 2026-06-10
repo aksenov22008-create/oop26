@@ -47,7 +47,7 @@ public class Account {
         }
 
         public static int register(String username, String password) {
-            String hashedPassword =  BCrypt.withDefaults().hashToString(12, password.toCharArray());
+            String hashedPassword = BCrypt.withDefaults().hashToString(12, password.toCharArray());
             try {
                 String insertSQL = "INSERT INTO account(username, password) VALUES (?, ?)";
                 PreparedStatement statement = DatabaseConnection.getConnection().prepareStatement(insertSQL);
@@ -57,7 +57,7 @@ public class Account {
                 statement.executeUpdate();
 
                 ResultSet resultSet = statement.getGeneratedKeys();
-                if(resultSet.next())
+                if (resultSet.next())
                     return resultSet.getInt(1);
                 else throw new SQLException();
             } catch (SQLException e) {
