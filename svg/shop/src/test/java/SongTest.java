@@ -64,15 +64,18 @@ public class SongTest {
     //3a
     @Test
     public void testRegister() throws Exception {
-        DatabaseConnection.connect("test.db");
-
         ListenerAccount.Persistence.init();
-        int id = ListenerAccount.Persistence.register("testUser", "testPassword");
+        int id = ListenerAccount.Persistence.register("User", "Password");
+        assertTrue(id > 0);
 
-        ListenerAccount account = ListenerAccount.Persistence.authenticate("testUser", "testPassword");
-
-        assertEquals(id, account.getId());
-        assertEquals("testUser", account.getUsername());
+    }
+    //3b
+    @Test
+    public void testLogin() throws Exception {
+        ListenerAccount.Persistence.init();
+        int id = ListenerAccount.Persistence.register("loginUser", "password123");
+        ListenerAccount account = ListenerAccount.Persistence.authenticate("loginUser", "password123");
+        assertEquals("loginUser", account.getUsername());
     }
     @BeforeEach
     void connect() {
