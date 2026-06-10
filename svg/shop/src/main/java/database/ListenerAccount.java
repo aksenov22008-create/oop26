@@ -13,8 +13,27 @@ public class ListenerAccount extends Account {
     public ListenerAccount(int id, String name) {
         super(id, name);
     }
+    //3d
+    public void buySong(int songId) throws SQLException, NotEnoughCreditsException {
+        if (Persistence.hasSong(this.id, songId)) {
+            return;
+        }
+        if (getCredits() <= 0) {
+            throw new NotEnoughCreditsException();
+        }
+        Persistence.addSong(this.id, songId);
+        addCredits(-1);
+    }
+    //3c
+    public int getCredits() throws SQLException {
+        return Persistence.getCredits(this.id);
+    }
 
-   /* public Playlist createPlaylist(List<Integer> songIds) throws SQLException {
+    public void addCredits(int amount) throws SQLException {
+        Persistence.addCredits(this.id, amount);
+    }
+
+   /*public Playlist createPlaylist(List<Integer> songIds) throws SQLException, NotEnoughCreditsException {
         Playlist playlist = new Playlist();
         for(var id: songIds) {
             if(!Persistence.hasSong(id)) {
@@ -28,8 +47,8 @@ public class ListenerAccount extends Account {
         }
         return playlist;
     }
-
 */
+
     public static class Persistence {
         public static void init() throws SQLException {
             Account.Persistence.init();
@@ -82,7 +101,6 @@ public class ListenerAccount extends Account {
             statement.setInt(2, id);
             statement.executeUpdate();
         }
-
         public static void addSong(int accountId, int songId) throws SQLException {
             String sql = "INSERT INTO owned_songs VALUES(?, ?)";
             PreparedStatement statement = DatabaseConnection.getConnection().prepareStatement(sql);

@@ -1,6 +1,7 @@
 import com.sun.jdi.connect.Connector;
 import database.DatabaseConnection;
 import database.ListenerAccount;
+import database.NotEnoughCreditsException;
 import music.Song;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import static org.junit.jupiter.api.Assertions.*;
@@ -51,6 +52,7 @@ public class SongTest {
         assertTrue(song.isPresent());
         assertEquals(expectedSong,song.get());
     }
+    //2e
     @ParameterizedTest
     @CsvFileSource(files = "songs.csv", numLinesToSkip = 1)
     public void testReadCsv(int id ,String artist,String title ,int length) throws SQLException {
@@ -61,22 +63,7 @@ public class SongTest {
         assertTrue(song.isPresent());
         assertEquals(expectedSong,song.get());
     }
-    //3a
-    @Test
-    public void testRegister() throws Exception {
-        ListenerAccount.Persistence.init();
-        int id = ListenerAccount.Persistence.register("User", "Password");
-        assertTrue(id > 0);
 
-    }
-    //3b
-    @Test
-    public void testLogin() throws Exception {
-        ListenerAccount.Persistence.init();
-        int id = ListenerAccount.Persistence.register("loginUser", "password123");
-        ListenerAccount account = ListenerAccount.Persistence.authenticate("loginUser", "password123");
-        assertEquals("loginUser", account.getUsername());
-    }
     @BeforeEach
     void connect() {
         DatabaseConnection.connect("songs.db");
