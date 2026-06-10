@@ -1,5 +1,8 @@
 package database;
 
+import music.Playlist;
+import music.Song;
+
 import javax.naming.AuthenticationException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,11 +13,11 @@ public class ListenerAccount extends Account {
     public ListenerAccount(int id, String name) {
         super(id, name);
     }
-/*
-    public Playlist createPlaylist(List<Integer> songIds) throws SQLException {
+
+   /* public Playlist createPlaylist(List<Integer> songIds) throws SQLException {
         Playlist playlist = new Playlist();
         for(var id: songIds) {
-            if(!hasSong(id)) {
+            if(!Persistence.hasSong(id)) {
                 buySong(id);
             }
             var optionalSong = Song.Persistence.read(id);
@@ -26,7 +29,7 @@ public class ListenerAccount extends Account {
         return playlist;
     }
 
-
+*/
     public static class Persistence {
         public static void init() throws SQLException {
             Account.Persistence.init();
@@ -96,12 +99,12 @@ public class ListenerAccount extends Account {
             return statement.executeQuery().next();
         }
 
-        static ListenerAccount authenticate(String username, String password) throws AuthenticationException {
+        public static ListenerAccount authenticate(String username, String password) throws AuthenticationException {
             Account account = Account.Persistence.authenticate(username, password);
             return new ListenerAccount(account.getId(), account.getUsername());
         }
 
     }
-*/
+
 
 }

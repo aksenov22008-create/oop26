@@ -1,5 +1,6 @@
 import com.sun.jdi.connect.Connector;
 import database.DatabaseConnection;
+import database.ListenerAccount;
 import music.Song;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import static org.junit.jupiter.api.Assertions.*;
@@ -60,7 +61,19 @@ public class SongTest {
         assertTrue(song.isPresent());
         assertEquals(expectedSong,song.get());
     }
+    //3a
+    @Test
+    public void testRegister() throws Exception {
+        DatabaseConnection.connect("test.db");
 
+        ListenerAccount.Persistence.init();
+        int id = ListenerAccount.Persistence.register("testUser", "testPassword");
+
+        ListenerAccount account = ListenerAccount.Persistence.authenticate("testUser", "testPassword");
+
+        assertEquals(id, account.getId());
+        assertEquals("testUser", account.getUsername());
+    }
     @BeforeEach
     void connect() {
         DatabaseConnection.connect("songs.db");
@@ -70,4 +83,5 @@ public class SongTest {
     void disconnect() {
         DatabaseConnection.disconnect();
     }
+
 }
