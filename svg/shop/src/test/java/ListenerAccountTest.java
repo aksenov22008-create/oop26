@@ -1,11 +1,14 @@
 import database.DatabaseConnection;
 import database.ListenerAccount;
 import database.NotEnoughCreditsException;
+import music.Playlist;
+import music.Song;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -59,21 +62,22 @@ public class ListenerAccountTest {
         assertEquals(0, account.getCredits());
     }
     @Test
-    public void testBuySongWithoutCredits() throws Exception {
+    public void testBuySongWithout() throws Exception {
         ListenerAccount.Persistence.init();
         ListenerAccount.Persistence.register("user1234", "pass1234");
         ListenerAccount account = ListenerAccount.Persistence.authenticate("user1234", "pass1234");
         assertThrows(NotEnoughCreditsException.class, () -> account.buySong(1));
     }
+    //inne
     @BeforeEach
     void connect() throws SQLException {
-        DatabaseConnection.connect("temp_test.db");
+        DatabaseConnection.connect("temp.db");
         ListenerAccount.Persistence.init();
     }
 
     @AfterEach
     void disconnect() {
         DatabaseConnection.disconnect();
-        new java.io.File("temp_test.db").delete();
+        new java.io.File("temp.db").delete();
     }
 }

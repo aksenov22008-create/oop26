@@ -33,10 +33,10 @@ public class ListenerAccount extends Account {
         Persistence.addCredits(this.id, amount);
     }
 
-   /*public Playlist createPlaylist(List<Integer> songIds) throws SQLException, NotEnoughCreditsException {
+   public Playlist createPlaylist(List<Integer> songIds) throws SQLException, NotEnoughCreditsException {
         Playlist playlist = new Playlist();
         for(var id: songIds) {
-            if(!Persistence.hasSong(id)) {
+            if(!Persistence.hasSong(this.id,id)) {
                 buySong(id);
             }
             var optionalSong = Song.Persistence.read(id);
@@ -47,7 +47,6 @@ public class ListenerAccount extends Account {
         }
         return playlist;
     }
-*/
 
     public static class Persistence {
         public static void init() throws SQLException {

@@ -2,6 +2,7 @@ import com.sun.jdi.connect.Connector;
 import database.DatabaseConnection;
 import database.ListenerAccount;
 import database.NotEnoughCreditsException;
+import music.Playlist;
 import music.Song;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,6 +14,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -63,7 +65,18 @@ public class SongTest {
         assertTrue(song.isPresent());
         assertEquals(expectedSong,song.get());
     }
-
+    //3e
+    @Test
+    public void testCreatePlaylist() throws Exception {
+        ListenerAccount.Persistence.register("user", "pass");
+        ListenerAccount account = ListenerAccount.Persistence.authenticate("user", "pass");
+        account.addCredits(3);
+        Playlist expected = new Playlist();
+        expected.add(Song.Persistence.read(1).get());
+        expected.add(Song.Persistence.read(2).get());
+        Playlist actual = account.createPlaylist(List.of(1, 2));
+        assertEquals(expected, actual);
+    }
     @BeforeEach
     void connect() {
         DatabaseConnection.connect("songs.db");
