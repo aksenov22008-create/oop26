@@ -35,4 +35,21 @@ public class ImageProcessor {
             }
         }
     }
+
+    public void  AddBrightnessThreaded(int amount) throws InterruptedException {
+        int cores = Runtime.getRuntime().availableProcessors();
+
+        Thread[] threads = new Thread[cores];
+        for (int i = 0; i < cores; i++) {
+            int startRow = (img.getHeight() / cores) * i;
+            int endRow = (i == cores - 1) ? img.getHeight() : (img.getHeight() / cores) * (i + 1);
+            AddBrightnessWorker worker = new AddBrightnessWorker(img, amount, startRow, endRow);
+            threads[i] = new Thread(worker);
+
+            threads[i].start();
+        }
+        for (int j = 0; j < cores; j++) {
+            threads[j].join();
+        }
+    }
 }
