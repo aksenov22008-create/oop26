@@ -4,10 +4,12 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.stream.Collectors;
 
 public class Server {
     private ServerSocket serverSocket;
-    private ArrayList<ClientHandler> handlers = new ArrayList<>();
+    private HashMap<String,ClientHandler> handlers = new HashMap();
     public Server(int port) throws IOException {
         this.serverSocket = new ServerSocket(port);
 
@@ -20,10 +22,14 @@ public class Server {
             Thread thread = new Thread(handler);
             thread.start();
 
-            handlers.add(handler);
+            handlers.put(handler.getLogin(),handler);
         }
     }
+    public void online(ClientHandler sender){
+        String userList = handlers.values().stream().map(ClientHandler::getLogin).collect(Collectors.joining("\n"));
+        sender.send("Users online: \n"+userList);
+    }
     public  void broadcast(String message,ClientHandler sender){
-        handlers.stream().filter(reciever -> reciever != sender).forEach(handler -> handler.send(message));
+        handlers.values().stream().filter(reciever -> reciever != sender).forEach(handler -> handler.send(message));
     }
 }

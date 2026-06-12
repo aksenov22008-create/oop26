@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class ClientHandler implements Runnable{
+    private  final String login;
     private final Socket socket;
     private final Server server;
     private final BufferedReader reader;
@@ -17,8 +18,11 @@ public class ClientHandler implements Runnable{
         this.server = server;
         this.reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         this.writer = new PrintWriter(socket.getOutputStream(),true);
+        this.login = reader.readLine();
     }
-
+    public String getLogin(){
+        return login;
+    }
 
 
     public void send(String message){
@@ -30,7 +34,13 @@ public class ClientHandler implements Runnable{
         String message;
         try {
             while ((message = reader.readLine()) != null) {
-                server.broadcast(message,this);
+                if (message.startsWith("/")) {
+                    String command = message.split(" ")[0];
+                    switch(command){
+                        case "/online"->server.online(this);
+                    }
+                }
+                server.broadcast(login+" :"+message,this);
             }
             socket.close();
         }catch (IOException e){
