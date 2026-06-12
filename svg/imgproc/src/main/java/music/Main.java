@@ -10,10 +10,10 @@ public class Main {
         procesor.addBrightness(-100);
         long end = System.currentTimeMillis();
         System.out.println("Czas:"+(end-start));
-        long start1 = System.currentTimeMillis();
+        start = System.currentTimeMillis();
         procesor.AddBrightnessThreaded(-100);
-        long end1 = System.currentTimeMillis();
-        System.out.println("Czas:"+(end1-start1));
+        end = System.currentTimeMillis();
+        System.out.println("Czas:"+(end-start));
         procesor.save("imgproc/output.png");
     }
 }
