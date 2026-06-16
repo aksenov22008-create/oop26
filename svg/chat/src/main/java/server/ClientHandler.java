@@ -1,4 +1,4 @@
-package server;
+package src.main.java.server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -35,10 +35,24 @@ public class ClientHandler implements Runnable{
         try {
             while ((message = reader.readLine()) != null) {
                 if (message.startsWith("/")) {
-                    String command = message.split(" ")[0];
-                    switch(command){
-                        case "/online"->server.online(this);
+                    String[] parts = message.split(" ", 3);
+                    String command = parts[0];
+                    switch (command) {
+                        case "/online" -> {
+                            server.online(this);
+                        }
+                        //4b
+                        case "/w" -> {
+                            if (parts.length < 3) {
+                                send("Usage: /w recipient message");
+                                continue;
+                            }
+                            String recipient = parts[1];
+                            String privateMessage = parts[2];
+                            server.whisper(recipient, privateMessage, this);
+                        }
                     }
+                    continue;
                 }
                 server.broadcast(login+" :"+message,this);
             }
@@ -47,4 +61,5 @@ public class ClientHandler implements Runnable{
             throw new RuntimeException();
         }
     }
+
 }

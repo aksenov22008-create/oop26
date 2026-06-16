@@ -1,4 +1,4 @@
-package server;
+package src.main.java.server;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -14,7 +14,7 @@ public class Server {
         this.serverSocket = new ServerSocket(port);
 
     }
-    private void listen() throws IOException {
+    public void listen() throws IOException {
         System.out.println("SERVER STARTED");
         while(true){
             Socket socket = serverSocket.accept();
@@ -31,5 +31,16 @@ public class Server {
     }
     public  void broadcast(String message,ClientHandler sender){
         handlers.values().stream().filter(reciever -> reciever != sender).forEach(handler -> handler.send(message));
+    }
+    //4b
+    public void whisper(String recipient, String message, ClientHandler sender) {
+        ClientHandler receiver = handlers.get(recipient);
+
+        if (receiver == null) {
+            sender.send("User "+ recipient+ " is not online.");
+            return;
+        }
+
+        receiver.send("[private] "+ sender.getLogin()+ ": "+ message);
     }
 }
