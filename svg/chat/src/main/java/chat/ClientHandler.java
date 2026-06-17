@@ -1,4 +1,4 @@
-package src.main.java.server;
+package chat;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,7 +7,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 public class ClientHandler implements Runnable{
-    private  final String login;
+    private String login;
     private final Socket socket;
     private final Server server;
     private final BufferedReader reader;
@@ -33,6 +33,8 @@ public class ClientHandler implements Runnable{
     public void run() {
         String message;
         try {
+            this.login = reader.readLine();
+            System.out.println("Login: "+this.login);
             while ((message = reader.readLine()) != null) {
                 if (message.startsWith("/")) {
                     String[] parts = message.split(" ", 3);

@@ -1,9 +1,8 @@
-package src.main.java.server;
+package chat;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
@@ -19,6 +18,7 @@ public class Server {
         while(true){
             Socket socket = serverSocket.accept();
             ClientHandler handler = new ClientHandler(socket,this);
+            System.out.println("Client connect");
             Thread thread = new Thread(handler);
             thread.start();
 
