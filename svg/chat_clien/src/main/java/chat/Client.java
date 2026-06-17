@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class Client {
+public class Client implements Runnable{
     private final Socket socket;
     private final BufferedReader reader;
     private final PrintWriter writer;
@@ -18,5 +18,17 @@ public class Client {
     }
     public void send(String message){
         writer.println(message);
+    }
+
+    @Override
+    public void run() {
+        String message;
+        try{
+            while((message = reader.readLine())!=null){
+                System.out.println(message);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
