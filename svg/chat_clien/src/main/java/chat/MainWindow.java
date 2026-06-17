@@ -28,9 +28,12 @@ public class MainWindow extends JFrame{
     private void send(){
         String message = inputField.getText();
         if(message.isEmpty()) return;
-        chatArea.append(message+"\n");
         client.send(message);
         inputField.setText("");
+    }
+    public void appendMessage(String mesage){
+        chatArea.append(mesage+'\n');
+        chatArea.setCaretPosition(chatArea.getDocument().getLength());
     }
 
 }

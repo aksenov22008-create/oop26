@@ -5,11 +5,16 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.function.Consumer;
 
 public class Client implements Runnable{
     private final Socket socket;
     private final BufferedReader reader;
     private final PrintWriter writer;
+    private Consumer<String> onMessageReceived;
+    public void setOnMessageReceived(Consumer<String> callback){
+
+    }
 
     public Client(String addres,int port) throws IOException {
         this.socket = new Socket(addres,port);
@@ -25,6 +30,9 @@ public class Client implements Runnable{
         String message;
         try{
             while((message = reader.readLine())!=null){
+                if(onMessageReceived!=null){
+                    onMessageReceived.accept(message);
+                }
                 System.out.println(message);
             }
         } catch (IOException e) {
