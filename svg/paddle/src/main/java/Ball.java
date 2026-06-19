@@ -5,7 +5,7 @@ import java.awt.geom.Point2D;
 
 public class Ball extends  GraphicsItem{
 
-    private Point2D.Double moveVector = new Point2D.Double(5,-5);
+    private Point2D.Double moveVector = new Point2D.Double(9,-9);
 
     public Ball(){
         height = 0.018 *canvasHeight;
