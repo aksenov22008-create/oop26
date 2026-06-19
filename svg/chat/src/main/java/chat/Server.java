@@ -30,7 +30,7 @@ public class Server {
         sender.send("Users online: \n"+userList);
     }
     public  void broadcast(String message,ClientHandler sender){
-        handlers.values().stream().filter(reciever -> reciever != sender).forEach(handler -> handler.send(message));
+        handlers.values().stream().forEach(handler -> handler.send(message));
     }
     //4b
     public void whisper(String recipient, String message, ClientHandler sender) {

@@ -13,7 +13,7 @@ public class Client implements Runnable{
     private final PrintWriter writer;
     private Consumer<String> onMessageReceived;
     public void setOnMessageReceived(Consumer<String> callback){
-
+        this.onMessageReceived=callback;
     }
 
     public Client(String addres,int port) throws IOException {
